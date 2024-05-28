@@ -1,9 +1,25 @@
 let color = "black";
+let click = false;
 
 //DOMContentLoaded waits for HTML and CSS to load first before executiion
 document.addEventListener("DOMContentLoaded", function(){
 
     createBoard(16)
+
+    //if mouse was clicked, then allow user to start drawing
+    document.querySelector("body").addEventListener("click", function(e){
+        if(e.target.tagName != "BUTTON"){
+            click = !click;
+            let draw = document.querySelector("#draw");
+            if (click){
+                draw.innerHTML = "Now you can draw";
+            }
+            else{
+                draw.innerHTML = "You are not allowed to draw";
+            }
+        }
+    })
+
     //create a board with 16x16, unless user input a number
     let btn_popup = document.querySelector("#popup");
     btn_popu.addEventListener("click"), function(){
@@ -46,11 +62,13 @@ function getSize(){
 
 //for random color option
 function colorDiv(){
-    if (color == "random"){
-        this.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`
-    }
-    else{
-        this.style.backgroundColor = 'black';
+    if(click){
+        if (color == "random"){
+            this.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`
+        }
+        else{
+            this.style.backgroundColor = 'black';
+        }
     }
 }
 
